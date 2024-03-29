@@ -14,7 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::active()->get();
+        $posts = Post::active()->withTrashed()->get();
         $view_data = [
             'posts' => $posts
         ];
