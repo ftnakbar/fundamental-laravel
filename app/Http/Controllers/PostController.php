@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use App\Models\Post;
 
 class PostController extends Controller
 {
@@ -13,10 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = DB::table('posts')
-            ->select('id', 'title', 'content', 'created_at')
-            ->where('active', true)
-            ->get();
+        $posts = Post::active()->get();
         $view_data = [
             'posts' => $posts
         ];
@@ -103,10 +101,9 @@ class PostController extends Controller
     public function destroy(string $id)
     {
         //Menghapus Postingan
-        DB::table('posts')
-            ->where('id', $id)
-            ->delete();
+        $post = Post::findOrFail($id);
 
+        $post->delete();
         return redirect('posts');
     }
 }

@@ -31,9 +31,9 @@
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-        <form action="POST" action="{{ url('posts/'.$post->id)}}">
-            @method('DELETE')
+        <form method="POST" action="{{ url('posts/'.$post->id)}}">
             @csrf
+            @method('DELETE')
             <button type="submit" class="btn btn-danger">Hapus</button>
         </form>
     </div>
